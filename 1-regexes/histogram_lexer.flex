@@ -8,6 +8,8 @@
 /* Bring in our declarations for token types and
    the yylval variable. */
 #include "histogram.hpp"
+#include <string>
+#include <sstream>
 
 
 // This is to work around an irritating bug in Flex
@@ -20,12 +22,47 @@ extern "C" int fileno(FILE *stream);
 
 %%
 
-[0-9]+          { fprintf(stderr, "Number : %s\n", yytext); /* TODO: get value out of yytext and into yylval.numberValue */;  return Number; }
+-?[0-9]+(\.[0-9]*)?          { fprintf(stderr, "Number : %s\n", yytext);
+                              /* TODO: get value out of yytext and into yylval.numberValue */;
+                              yylval.numberValue = std::stod(yytext);
+                              return Number;
+                            }
 
-[a-z]+          { fprintf(stderr, "Word : %s\n", yytext); /* TODO: get value out of yytext and into yylval.wordValue */;  return Word; }
+-?[0-9]+\/[0-9]+            {
+                              fprintf(stderr, "Number : %s\n", yytext);
+                              std::istringstream iss(yytext);
+
+                              std::string numerator, denominator;
+                              std::getline(iss, numerator, '/');
+                              std::getline(iss, denominator);
+
+                              double temp = std::stod(numerator);
+                              double temp2 = std::stod(denominator);
+
+                              yylval.numberValue= temp/temp2;
+                              return Number;
+
+                            }
+
+\[[^\n\]]*\]                {  fprintf(stderr, "Word : %s\n", yytext);
+                                /* TODO: get value out of yytext and into yylval.wordValue */;
+                                std::string temp = yytext;
+                                temp.erase(0,1);
+                                temp.erase(temp.size()-1);
+                                yylval.wordValue = new std::string(temp);
+                                return Word;
+                            }
+
+
+[a-zA-Z]+          {  fprintf(stderr, "Word : %s\n", yytext);
+                      /* TODO: get value out of yytext and into yylval.wordValue */;
+                      yylval.wordValue = new std::string(yytext);
+                      return Word;
+                   }
 
 \n              { fprintf(stderr, "Newline\n"); }
 
+. {}
 
 %%
 

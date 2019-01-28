@@ -1,0 +1,9 @@
+Word : aa
+Newline
+Word : aaa
+Newline
+Word : aa
+Newline
+Word : a
+Word : a
+Newline

@@ -1,0 +1,2 @@
+Word : [a b [c]
+Word : d

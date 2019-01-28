@@ -1,0 +1,6 @@
+Word : abc
+Number : 40
+Word : xyz
+Number : 1
+Word : xyz
+Number : -2

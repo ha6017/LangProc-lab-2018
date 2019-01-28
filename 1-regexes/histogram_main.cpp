@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <cassert>
 #include <iostream>
-#include <iomanip>
+#include <iomanip> // sets the precision needed to print 3 digits after decimal
 
 // Use a hash-table to maintain a word -> count mapping.
 // This deliberately uses std::unordered_map rather than std::map,
@@ -34,7 +34,9 @@ int main()
             // in yylval.numberValue
 
             // TODO: add to sum
-            
+            sum = sum + yylval.numberValue;
+            //std::cerr<<"sum = "<<sum;
+
         }else if(type==Word){
             // We have a string. The value is in a string
             // _pointed to_ by yylval.wordValue. Note that
@@ -42,8 +44,10 @@ int main()
             // deallocated by us.
 
             // TODO: add yylval.wordValue to histogram
+            histogram[*yylval.wordValue] += 1;
 
             // TODO: Free the pointer yylval.wordValue to stop leaks
+            delete yylval.wordValue;
         }else{
             assert(0); // There are only three token types.
             return 1;
@@ -52,7 +56,8 @@ int main()
 
 
     // TODO: print out `sum` to std::cout with three decimal digits
-    
+    std::cout << std::fixed;
+    std::cout << std::setprecision(3) << sum << std::endl;
 
     // Build a vector of (word,count) entries based on the hash-table
     std::vector<std::pair<std::string,unsigned> > sorted(histogram.begin(), histogram.end());
@@ -74,8 +79,8 @@ int main()
         std::string name=it->first;
         unsigned count=it->second;
         // TODO: Print out `name` and `count` to std::cout
-        
-        
+        std::cout<<"["<<name<<"] "<<count<<std::endl;
+
         ++it;
     }
 

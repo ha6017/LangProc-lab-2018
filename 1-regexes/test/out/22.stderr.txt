@@ -1,0 +1,15 @@
+Word : a
+Word : a
+Word : a
+Word : aa
+Number : -67
+Number : 1/2
+Number : -80
+Number : -6780.0
+Number : 64/8
+Word : for
+Word : while
+Newline
+Word : [  x]
+Number : 52
+Word : x

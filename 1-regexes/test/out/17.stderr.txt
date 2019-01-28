@@ -1,0 +1,8 @@
+Word : I
+Word : was
+Word : born
+Word : in
+Number : 1999
+Word : I
+Word : am
+Number : 19
