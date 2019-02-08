@@ -1,8 +1,11 @@
 #ifndef ast_operators_hpp
 #define ast_operators_hpp
 
+#include "ast_expression.hpp"
+
 #include <string>
 #include <iostream>
+#include <cmath>
 
 class Operator
     : public Expression
@@ -74,7 +77,10 @@ public:
     ) const override 
     {
         // TODO-D : Implement this, based on AddOperator::evaluate
-        throw std::runtime_error("MulOperator::evaluate is not implemented.");
+        //throw std::runtime_error("MulOperator::evaluate is not implemented.");
+        double vl=left->evaluate(bindings);
+        double vr=right->evaluate(bindings);
+        return vl-vr;
     }
 };
 
@@ -94,7 +100,10 @@ public:
         const std::map<std::string,double> &bindings
     ) const override
     {
-        throw std::runtime_error("MulOperator::evaluate is not implemented.");
+        //throw std::runtime_error("MulOperator::evaluate is not implemented.");
+        double vl=left->evaluate(bindings);
+        double vr=right->evaluate(bindings);
+        return vl*vr;
     }
 };
 
@@ -113,7 +122,10 @@ public:
         const std::map<std::string,double> &bindings
     ) const override
     {
-        throw std::runtime_error("DivOperator::evaluate is not implemented.");
+        //throw std::runtime_error("DivOperator::evaluate is not implemented.");
+        double vl=left->evaluate(bindings);
+        double vr=right->evaluate(bindings);
+        return vl/vr;
     }
 };
 
@@ -132,7 +144,10 @@ public:
         const std::map<std::string,double> &bindings
     ) const override
     {
-        throw std::runtime_error("ExpOperator::evaluate is not implemented.");
+        //throw std::runtime_error("ExpOperator::evaluate is not implemented.");
+        double vl=left->evaluate(bindings);
+        double vr=right->evaluate(bindings);
+        return std::pow(vl,vr);
     }
 };
 
