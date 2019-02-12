@@ -45,7 +45,7 @@ ROOT : EXPR { g_root = $1; }
 
 /* TODO-3 : Add support for (x+6) and (10-y). You'll need to add production rules, and create an AddOperator or
             SubOperator. */
-EXPR :| EXPR T_PLUS TERM { $$ = new AddOperator($1, $3); }
+EXPR : EXPR T_PLUS TERM { $$ = new AddOperator($1, $3); }
       | EXPR T_MINUS TERM { $$ = new SubOperator($1, $3); }
       | TERM                 { $$ = $1; }
       
