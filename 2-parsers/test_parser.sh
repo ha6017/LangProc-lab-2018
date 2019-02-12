@@ -70,7 +70,7 @@ while IFS=, read -r INPUT_LINE REF_LINE BINDINGS REF_VALUE; do
     
     echo "${INPUT_LINE},${GOT_LINE},${BINDINGS},${GOT_VALUE}" >> test/valid_expressions.got.txt
 
-done < <( cat test/valid_expressions.input.txt | ${DOS2UNIX})
+done < <( cat test/valid_expressions.input.txt )
 
 echo ""
 echo "============================================"
@@ -91,7 +91,7 @@ while IFS=, read -r INPUT_LINE; do
         echo "ERROR"
         PASSED=$(( ${PASSED}-1 ));        
     fi
-done < <( cat test/invalid_expressions.input.txt | ${DOS2UNIX} )
+done < <( cat test/invalid_expressions.input.txt )
 
 
 echo "########################################"
