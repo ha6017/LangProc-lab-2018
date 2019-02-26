@@ -34,7 +34,7 @@ void CompileRec(
         }
     }
     // TODO : handle the others
-    else if( program->type == "Lessthan"){
+    else if( program->type == "LessThan"){
         std::string A = makeName("A");
         std::string B = makeName("B");
         CompileRec(A, program->branches[0]);
@@ -63,20 +63,20 @@ void CompileRec(
         //CompileRec(Input, program->branches[0]);
 
         //std::cout<<"input "<<destReg<<" "<<Input<<std::endl;
-        std::cout<<"input "<<destReg<<" "<<std::endl;
+        std::cout<<"input "<<destReg<<std::endl;
         
     }
     else if( program->type == "Output"){
         CompileRec(destReg, program->branches[0]);
 
-        std::cout<<"output "<<destReg<<" "<<std::endl;
+        std::cout<<"output "<<destReg<<std::endl;
     }
     else if(program->type == "Assign"){
         std::string zero = makeName("zero");
-        CompileRec(program->value, program->branches[0]);
-
+        //CompileRec(program->value, program->branches[0]);
+        CompileRec(destReg, program->branches[0]);
         std::cout<<"const "<<zero<<" 0"<<std::endl;
-        std::cout<<"add "<<destReg<<" "<<program->value<<" "<<zero<<std::endl;
+        std::cout<<"add "<<program->value<<" "<<destReg<<" "<<zero<<std::endl;
     }
     else if(program->type == "If"){
         std::string C = makeName("Cond");
@@ -97,7 +97,7 @@ void CompileRec(
 
     else if(program->type == "While"){
 
-        std::string C = makeName("Cond");
+        //std::string C = makeName("Cond");
         std::string while_beg = makeName("while_beg");
         std::string while_end = makeName("while_end");
 
@@ -106,8 +106,8 @@ void CompileRec(
         std::cout<<"const "<<zero<<" 0"<<std::endl;
 
         std::cout<<":"<<while_beg<<std::endl;
-        CompileRec(C, program->branches[0]);
-        std::cout<<"beq "<<zero<<" "<<C<<" "<<while_end<<std::endl;
+        CompileRec(destReg, program->branches[0]);
+        std::cout<<"beq "<<destReg<<" "<<zero<<" "<<while_end<<std::endl;
 
         CompileRec(destReg, program->branches[1]);
         std::cout<<"beq "<<zero<<" "<<zero<<" "<<while_beg<<std::endl;
